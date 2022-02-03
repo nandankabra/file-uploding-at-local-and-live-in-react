@@ -8,7 +8,6 @@ const config = require('../config.json');
 
 //RFC
 export default function FileUpload2() {
-    //1. State/Hoook Variable
     const [file,setFile] = useState('')
     const [data,setData] = useState({
         percent : 0,
@@ -40,20 +39,14 @@ export default function FileUpload2() {
         setFile(e[0])
        
     }
-    let uploadImage = async (e)=>{ //Fat Arrow Function / Arrow function ES6  e=event
+    let uploadImage = async (e)=>{ 
         e.preventDefault();
-        //Promise Chain
-        //await always wait for PO / Promise Object
         try {
             setData({
                 loading: true
             });
             
             console.log('OKOKOK');
-
-            //Lets create an object of FormData Class
-
-            //let object = new ClassName();
             let data = new FormData();
             data.append('files',file);
 
@@ -82,8 +75,6 @@ export default function FileUpload2() {
             console.log(error)
         }
     }
-
-    //3. Return Statement Return JSX
     return (
         <>
             <div className="row">
@@ -94,8 +85,6 @@ export default function FileUpload2() {
                             <label htmlFor="file" className="form-label">Upload File</label>
                             <input onChange={ (e)=>{ handleChange(e.target.files) } } type="file" accept="image/*" name="files" className="form-control" id="file"/>
                         </div>
-                        
-
                         <button type="submit" className="btn btn-primary">Submit</button>
                     </form>
                     <br />
@@ -105,7 +94,6 @@ export default function FileUpload2() {
                             <div className="progress-bar" role="progressbar" style={{ width: data.percent+'%'}} aria-valuenow={data.percent} aria-valuemin={0} aria-valuemax={100}>{ data.percent }%</div>
                         </div>
                     }
-                    
                 </div>
             </div>
             <ToastContainer />
