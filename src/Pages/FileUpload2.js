@@ -14,7 +14,26 @@ export default function FileUpload2() {
         percent : 0,
         loading: false
     })
+    const [jwt,setJwt] = useState({
+        token:""
+    });
 
+    useEffect(()=>{
+        try {
+            let user = JSON.parse(localStorage.getItem('user'))
+
+            if(user){
+                setJwt({
+                    ...jwt,
+                    token:user.jwt
+                })
+            }else{
+                
+            }
+        } catch (error) {
+            
+        }
+    },[]);
     //2. Function
     let handleChange = (e)=>{
         console.log('Changed',e[0])
@@ -41,6 +60,10 @@ export default function FileUpload2() {
             let upload_response = await axios({
                 method: 'POST',
                 url:`${config.dev_api_url}/api/upload`,
+                headers:{
+                    'content-type': 'application/json',
+                    "Authorization":`Bearer ${jwt.token}`
+                },
                 data,
                 onUploadProgress:(progress)=>{ 
                     console.log("FileUpload ", progress);
